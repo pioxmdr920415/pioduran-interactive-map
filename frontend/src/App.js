@@ -6,12 +6,7 @@ import { Toaster } from "sonner";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<InteractiveMap />} />
-        </Routes>
-      </BrowserRouter>
+    <>
       <Toaster 
         position="top-center"
         toastOptions={{
@@ -25,7 +20,14 @@ function App() {
           },
         }}
       />
-    </div>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<InteractiveMap />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
 
