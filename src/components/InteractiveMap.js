@@ -851,7 +851,7 @@ export default function InteractiveMap() {
         <MapContainer
           center={mapCenter}
           zoom={12}
-          style={{ height: 'calc(100vh - 88px)', width: '100%' }}
+          style={{ height: 'calc(100vh - 92px)', width: '100%' }}
           zoomControl={false}
           ref={setMapRef}
         >
