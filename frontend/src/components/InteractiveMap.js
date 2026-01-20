@@ -954,6 +954,48 @@ export default function InteractiveMap() {
                 />
               );
             }
+            if (drawing.type === 'line') {
+              return (
+                <Polyline
+                  key={drawing.id}
+                  positions={drawing.points}
+                  color="#10B981"
+                  weight={3}
+                >
+                  <Popup>
+                    <div className="p-2">
+                      <h3 className="font-manrope font-bold text-slate-900">Line</h3>
+                      <p className="text-sm text-slate-600">Distance: {drawing.distance.toFixed(2)} km</p>
+                    </div>
+                  </Popup>
+                </Polyline>
+              );
+            }
+            if (drawing.type === 'polygon') {
+              const areaDisplay = drawing.areaKm >= 1 
+                ? `${drawing.areaKm.toFixed(2)} km²` 
+                : `${drawing.area.toFixed(2)} m²`;
+              return (
+                <LeafletPolygon
+                  key={drawing.id}
+                  positions={drawing.points}
+                  pathOptions={{
+                    color: '#8B5CF6',
+                    fillColor: '#8B5CF6',
+                    fillOpacity: 0.2,
+                    weight: 3
+                  }}
+                >
+                  <Popup>
+                    <div className="p-2">
+                      <h3 className="font-manrope font-bold text-slate-900">Polygon</h3>
+                      <p className="text-sm text-slate-600">Area: {areaDisplay}</p>
+                      <p className="text-sm text-slate-600">Perimeter: {drawing.perimeter.toFixed(2)} km</p>
+                    </div>
+                  </Popup>
+                </LeafletPolygon>
+              );
+            }
             if (drawing.type === 'measure') {
               return (
                 <Polyline
@@ -983,6 +1025,30 @@ export default function InteractiveMap() {
               weight={3}
               dashArray="5, 10"
               opacity={0.7}
+            />
+          )}
+
+          {/* Active line drawing */}
+          {activeTool === 'line' && drawingPoints.length > 0 && (
+            <Polyline
+              positions={drawingPoints}
+              color="#10B981"
+              weight={3}
+              opacity={0.7}
+            />
+          )}
+
+          {/* Active polygon drawing */}
+          {activeTool === 'polygon' && drawingPoints.length > 0 && (
+            <LeafletPolygon
+              positions={drawingPoints}
+              pathOptions={{
+                color: '#8B5CF6',
+                fillColor: '#8B5CF6',
+                fillOpacity: 0.2,
+                weight: 3,
+                opacity: 0.7
+              }}
             />
           )}
         </MapContainer>
