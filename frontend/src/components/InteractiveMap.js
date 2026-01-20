@@ -1119,7 +1119,7 @@ export default function InteractiveMap() {
       </div>
 
       {/* Bottom Center - Enhanced Info Panel */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+      <div className={`absolute bottom-6 z-10 left-1/2 -translate-x-1/2 transition-all duration-300`}>
         <div className="glass-panel px-8 py-4 rounded-2xl shadow-xl border-2 border-white/40">
           <div className="flex items-center gap-8 font-manrope">
             <div className="flex items-center gap-2">
