@@ -16,6 +16,7 @@ import * as turf from '@turf/turf';
 import html2canvas from 'html2canvas';
 import Header from './Header';
 import StylePickerPanel from './StylePickerPanel';
+import UnifiedToolsPanel from './UnifiedToolsPanel';
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
