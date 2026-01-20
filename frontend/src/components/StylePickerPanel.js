@@ -43,7 +43,8 @@ export default function StylePickerPanel({
   onClose, 
   currentStyle, 
   onStyleChange,
-  activeTool 
+  activeTool,
+  compact = false 
 }) {
   const [showPalettes, setShowPalettes] = useState(false);
   const [customColors, setCustomColors] = useState([]);
@@ -85,8 +86,16 @@ export default function StylePickerPanel({
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen && !compact) return null;
 
+  // Compact mode for sidebar
+  if (compact) {
+    return (
+      <div className="space-y-3">{renderContent()}</div>
+    );
+  }
+
+  // Standalone floating panel mode
   return (
     <div className="absolute top-24 left-6 z-50 glass-panel rounded-2xl shadow-2xl border-2 border-white/40 w-[340px] animate-slide-in">
       {/* Header */}
