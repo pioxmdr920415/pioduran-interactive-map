@@ -967,6 +967,14 @@ export default function InteractiveMap() {
 
           {/* Drawings */}
           {drawings.map((drawing) => {
+            const style = drawing.style || { 
+              strokeColor: '#3B82F6', 
+              fillColor: '#3B82F6', 
+              strokeWidth: 3, 
+              fillOpacity: 0.2, 
+              dashArray: null 
+            };
+            
             if (drawing.type === 'circle') {
               return (
                 <LeafletCircle
@@ -974,9 +982,11 @@ export default function InteractiveMap() {
                   center={drawing.center}
                   radius={drawing.radius}
                   pathOptions={{
-                    color: '#0EA5E9',
-                    fillColor: '#0EA5E9',
-                    fillOpacity: 0.2
+                    color: style.strokeColor,
+                    fillColor: style.fillColor,
+                    fillOpacity: style.fillOpacity,
+                    weight: style.strokeWidth,
+                    dashArray: style.dashArray
                   }}
                 />
               );
@@ -987,9 +997,11 @@ export default function InteractiveMap() {
                   key={drawing.id}
                   bounds={drawing.bounds}
                   pathOptions={{
-                    color: '#0EA5E9',
-                    fillColor: '#0EA5E9',
-                    fillOpacity: 0.2
+                    color: style.strokeColor,
+                    fillColor: style.fillColor,
+                    fillOpacity: style.fillOpacity,
+                    weight: style.strokeWidth,
+                    dashArray: style.dashArray
                   }}
                 />
               );
@@ -999,8 +1011,9 @@ export default function InteractiveMap() {
                 <Polyline
                   key={drawing.id}
                   positions={drawing.points}
-                  color="#10B981"
-                  weight={3}
+                  color={style.strokeColor}
+                  weight={style.strokeWidth}
+                  dashArray={style.dashArray}
                 >
                   <Popup>
                     <div className="p-2">
@@ -1020,10 +1033,11 @@ export default function InteractiveMap() {
                   key={drawing.id}
                   positions={drawing.points}
                   pathOptions={{
-                    color: '#8B5CF6',
-                    fillColor: '#8B5CF6',
-                    fillOpacity: 0.2,
-                    weight: 3
+                    color: style.strokeColor,
+                    fillColor: style.fillColor,
+                    fillOpacity: style.fillOpacity,
+                    weight: style.strokeWidth,
+                    dashArray: style.dashArray
                   }}
                 >
                   <Popup>
@@ -1041,9 +1055,9 @@ export default function InteractiveMap() {
                 <Polyline
                   key={drawing.id}
                   positions={drawing.points}
-                  color="#EF4444"
-                  weight={3}
-                  dashArray="5, 10"
+                  color={style.strokeColor}
+                  weight={style.strokeWidth}
+                  dashArray={style.dashArray}
                 >
                   <Popup>
                     <div className="p-2">
