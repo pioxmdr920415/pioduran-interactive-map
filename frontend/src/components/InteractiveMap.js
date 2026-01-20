@@ -543,6 +543,15 @@ function ExportMapButton({ onExport, onPrint }) {
   );
 }
 
+// Default styles per tool
+const DEFAULT_TOOL_STYLES = {
+  line: { strokeColor: '#10B981', fillColor: '#10B981', strokeWidth: 3, fillOpacity: 0.2, lineStyle: 'solid', dashArray: null },
+  polygon: { strokeColor: '#8B5CF6', fillColor: '#8B5CF6', strokeWidth: 3, fillOpacity: 0.2, lineStyle: 'solid', dashArray: null },
+  circle: { strokeColor: '#0EA5E9', fillColor: '#0EA5E9', strokeWidth: 3, fillOpacity: 0.2, lineStyle: 'solid', dashArray: null },
+  rectangle: { strokeColor: '#0EA5E9', fillColor: '#0EA5E9', strokeWidth: 3, fillOpacity: 0.2, lineStyle: 'solid', dashArray: null },
+  measure: { strokeColor: '#EF4444', fillColor: '#EF4444', strokeWidth: 3, fillOpacity: 0.2, lineStyle: 'dashed', dashArray: '5, 10' }
+};
+
 export default function InteractiveMap() {
   const [markers, setMarkers] = useState([]);
   const [currentLayer, setCurrentLayer] = useState('osm');
@@ -557,6 +566,17 @@ export default function InteractiveMap() {
   const [measurePoints, setMeasurePoints] = useState([]);
   const [drawingPoints, setDrawingPoints] = useState([]); // For line and polygon drawing
   const mapContainerRef = useRef(null);
+  
+  // Style picker state
+  const [isStylePickerOpen, setIsStylePickerOpen] = useState(false);
+  const [currentStyle, setCurrentStyle] = useState({
+    strokeColor: '#3B82F6',
+    fillColor: '#3B82F6',
+    strokeWidth: 3,
+    fillOpacity: 0.2,
+    lineStyle: 'solid',
+    dashArray: null
+  });
 
   const handleMapClick = useCallback((latlng) => {
     const newMarker = {
