@@ -848,12 +848,15 @@ export default function InteractiveMap() {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app" ref={mapContainerRef}>
+      {/* Header */}
+      <Header />
+      
       {/* Main Map */}
-      <div className="map-container" data-testid="map-container">
+      <div className="map-container pt-[88px]" data-testid="map-container" style={{ height: '100vh' }}>
         <MapContainer
           center={mapCenter}
           zoom={13}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: 'calc(100vh - 88px)', width: '100%' }}
           zoomControl={false}
           ref={setMapRef}
         >
