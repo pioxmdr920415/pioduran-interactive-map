@@ -107,8 +107,6 @@ export default function StylePickerPanel({
             </p>
           </div>
         )}
-
-        {/* Stroke Color */}
         <div>
           <label className="text-sm font-semibold text-slate-700 mb-2 block">
             Stroke Color
