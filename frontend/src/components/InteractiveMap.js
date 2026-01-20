@@ -490,6 +490,53 @@ function FileImporter({ onFileImport }) {
   );
 }
 
+// Export/Print component
+function ExportMapButton({ onExport, onPrint }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative" data-testid="export-control">
+      <button
+        data-testid="export-button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="glass-panel p-3 rounded-xl hover:shadow-lg transition-all active:scale-95"
+        title="Export/Print Map"
+      >
+        <Download className="w-6 h-6 text-slate-700" />
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 glass-panel rounded-2xl p-2 min-w-[180px] animate-slide-in z-50">
+          <div className="space-y-1">
+            <button
+              data-testid="export-jpeg"
+              onClick={() => {
+                onExport();
+                setIsOpen(false);
+              }}
+              className="w-full text-left px-4 py-2 rounded-xl transition-all hover:bg-slate-100 text-slate-700 flex items-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Save as JPEG
+            </button>
+            <button
+              data-testid="print-map"
+              onClick={() => {
+                onPrint();
+                setIsOpen(false);
+              }}
+              className="w-full text-left px-4 py-2 rounded-xl transition-all hover:bg-slate-100 text-slate-700 flex items-center gap-2"
+            >
+              <Printer className="w-4 h-4" />
+              Print Map
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function InteractiveMap() {
   const [markers, setMarkers] = useState([]);
   const [currentLayer, setCurrentLayer] = useState('osm');
