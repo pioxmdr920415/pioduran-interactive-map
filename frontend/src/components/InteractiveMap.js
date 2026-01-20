@@ -778,7 +778,8 @@ export default function InteractiveMap() {
         points: drawingPoints,
         area: area,
         areaKm: areaKm,
-        perimeter: perimeter
+        perimeter: perimeter,
+        style: { ...currentStyle }
       };
       setDrawings([...drawings, newDrawing]);
       setDrawingPoints([]);
