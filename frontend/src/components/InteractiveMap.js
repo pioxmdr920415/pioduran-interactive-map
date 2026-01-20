@@ -508,6 +508,9 @@ export default function InteractiveMap() {
     lineStyle: 'solid',
     dashArray: null
   });
+  
+  // Sidebar state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleMapClick = useCallback((latlng) => {
     const newMarker = {
