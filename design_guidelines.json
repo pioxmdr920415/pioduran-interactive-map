@@ -1,0 +1,121 @@
+{
+  "identity": {
+    "name": "E1",
+    "role": "Anti-AI Designer",
+    "principles": [
+      "Fusion over Imitation",
+      "Emotion First",
+      "Content is King",
+      "Zoom In",
+      "Negative Space",
+      "Contrast"
+    ]
+  },
+  "project_context": {
+    "app_type": "Interactive Map Web App",
+    "theme_mode": "light",
+    "emotional_tone": "Precision, Fluidity, Clarity",
+    "visual_style": "Oceanic Glass / Cockpit UI"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["600", "700", "800"],
+      "usage": "Use for all coordinates, panel titles, and metric values. Gives a geometric, technical feel."
+    },
+    "body": {
+      "font_family": "Inter, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "Use for descriptions, tooltips, and long-form text for maximum legibility."
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "Use for raw lat/long data and JSON exports."
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": "#0EA5E9",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#F1F5F9",
+      "secondary_foreground": "#0F172A",
+      "accent": "#06B6D4",
+      "accent_foreground": "#FFFFFF",
+      "background": "#FFFFFF",
+      "foreground": "#0F172A",
+      "muted": "#F8FAFC",
+      "muted_foreground": "#64748B",
+      "border": "#E2E8F0",
+      "destructive": "#EF4444"
+    },
+    "usage_rules": [
+      "Do not use generic teal (#14B8A6) as primary. Use Sky Blue (#0EA5E9) for active states to contrast with map tiles.",
+      "Use Slate-900 (#0F172A) for primary text to ensure high contrast against light maps.",
+      "Glassmorphism backgrounds must use 'bg-white/80' or 'bg-white/90' with 'backdrop-blur-md'. Never use pure transparent."
+    ]
+  },
+  "layout_strategy": {
+    "type": "Map-First / Cockpit",
+    "rules": [
+      "The Map Component (Leaflet) must occupy 100vw and 100vh. It is the bottom-most layer (z-0).",
+      "All UI elements (Search, Tools, Panels) must float above the map (z-10+).",
+      "Do not use a fixed sidebar that shrinks the map. Use a collapsible floating drawer.",
+      "Search Bar: Positioned Top-Center or Top-Left (Floating).",
+      "Toolbar: Positioned Bottom-Center (Floating Dock style) or Right-Center (Vertical pill)."
+    ],
+    "spacing": {
+      "container_padding": "p-4 md:p-6",
+      "panel_gap": "gap-4"
+    }
+  },
+  "components": {
+    "buttons": {
+      "style": "Pill-shaped or Soft Rounded (rounded-xl)",
+      "classes": "shadow-sm hover:shadow-md transition-all active:scale-95"
+    },
+    "panels": {
+      "style": "Glassmorphism",
+      "classes": "bg-white/90 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl"
+    },
+    "inputs": {
+      "style": "Clean & Minimal",
+      "classes": "bg-white/50 border-slate-200 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": "Use colored shadows for depth: 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]'",
+    "borders": "1px solid border-slate-200/60 for all floating panels.",
+    "glass_effect": "backdrop-blur-xl bg-white/80 supports-[backdrop-filter]:bg-white/60"
+  },
+  "assets": {
+    "images": [
+      {
+        "category": "texture",
+        "url": "https://images.unsplash.com/photo-1759269834665-2b401eb4d6f4?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Abstract topographic lines - use for 'About' modal background or empty states."
+      },
+      {
+        "category": "avatar",
+        "url": "https://images.pexels.com/photos/4565706/pexels-photo-4565706.jpeg",
+        "description": "Professional user avatar for the profile menu."
+      }
+    ],
+    "icons": "Use Lucide-React for all UI icons. Use Leaflet's default markers or custom SVG markers for map items."
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALLATION: Ensure 'leaflet' and 'react-leaflet' are installed. If not, install them.",
+    "2. MAP SETUP: Initialize the Leaflet map container with 'h-screen w-screen fixed inset-0'.",
+    "3. Z-INDEX WAR: Ensure the map is z-0 and all UI panels are z-10 or higher. Leaflet controls often fight for z-index, so manually override if needed.",
+    "4. INTERACTIVITY: Use 'react-leaflet' hooks to handle map clicks and state updates.",
+    "5. GLASS UI: Apply the 'glass_effect' classes to the Search Bar, Tool Panel, and Info Drawers.",
+    "6. ROUTING: Mock the routing response if an API key is not available, or use OSRM public demo API (carefully).",
+    "7. FILE IMPORT: Use 'togeojson' or similar logic to parse KML/GeoJSON files on the client side.",
+    "8. DATA-TESTID: Add 'data-testid' to the Map Container, Search Input, and all Toolbar Buttons."
+  ],
+  "universal_guidelines": [
+    "Avoid 'AI Slop' - no generic centered layouts.",
+    "Micro-animations on hover are mandatory.",
+    "Use Sonner for all toast notifications (e.g., 'Marker Added', 'Route Calculated').",
+    "Ensure text contrast is WCAG AA compliant, especially on semi-transparent backgrounds."
+  ]
+}
