@@ -549,6 +549,8 @@ export default function InteractiveMap() {
   const [importedData, setImportedData] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const [measurePoints, setMeasurePoints] = useState([]);
+  const [drawingPoints, setDrawingPoints] = useState([]); // For line and polygon drawing
+  const mapContainerRef = useRef(null);
 
   const handleMapClick = useCallback((latlng) => {
     const newMarker = {
