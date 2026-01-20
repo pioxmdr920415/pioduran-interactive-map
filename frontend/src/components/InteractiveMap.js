@@ -14,6 +14,7 @@ import {
 import { toast } from 'sonner';
 import * as turf from '@turf/turf';
 import html2canvas from 'html2canvas';
+import Header from './Header';
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
