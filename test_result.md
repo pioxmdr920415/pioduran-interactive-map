@@ -282,6 +282,7 @@ metadata:
 
 test_plan:
   current_focus:
+    - "KML/GeoJSON File Import"
     - "Color & Style Picker Panel"
     - "Per-Tool Default Colors"
     - "Preset Color Palettes"
