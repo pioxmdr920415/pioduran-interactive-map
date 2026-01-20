@@ -246,16 +246,16 @@ function DrawingToolbar({
   ];
 
   return (
-    <div className="glass-panel rounded-2xl p-2 flex flex-col gap-2" data-testid="drawing-toolbar">
+    <div className="glass-panel rounded-2xl p-3 flex flex-col gap-2 shadow-xl border-2 border-white/40" data-testid="drawing-toolbar">
       {tools.map((tool) => (
         <button
           key={tool.id}
           data-testid={`tool-${tool.id}`}
           onClick={() => onToolSelect(tool.id)}
-          className={`p-3 rounded-xl transition-all active:scale-95 ${
+          className={`p-3.5 rounded-xl transition-all active:scale-95 ${
             activeTool === tool.id
-              ? 'bg-primary text-white shadow-lg'
-              : 'hover:bg-slate-100 text-slate-700'
+              ? 'bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-lg scale-105'
+              : 'hover:bg-blue-50 text-slate-700 hover:text-blue-600'
           }`}
           title={tool.label}
         >
@@ -267,7 +267,7 @@ function DrawingToolbar({
         <button
           data-testid="clear-drawings"
           onClick={onClearDrawings}
-          className="p-3 rounded-xl hover:bg-red-50 text-red-500 transition-all active:scale-95"
+          className="p-3.5 rounded-xl hover:bg-red-50 text-red-500 hover:text-red-600 transition-all active:scale-95 mt-2 border-t-2 border-slate-200/50"
           title="Clear all drawings"
         >
           <Trash2 className="w-5 h-5" />
