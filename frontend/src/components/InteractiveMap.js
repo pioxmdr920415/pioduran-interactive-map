@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, Circle as LeafletCircle, Rectangle as LeafletRectangle } from 'react-leaflet';
+import React, { useState, useCallback, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, Circle as LeafletCircle, Rectangle as LeafletRectangle, Polygon as LeafletPolygon } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -9,10 +9,11 @@ import 'leaflet-draw/dist/leaflet.draw.css';
 import { 
   MapPin, Navigation, Search, Layers, Route, Pencil, 
   Trash2, Upload, X, Target, Home, Settings, ZoomIn, 
-  ZoomOut, Circle, Square, Ruler
+  ZoomOut, Circle, Square, Ruler, Download, Printer, Minus, Pentagon
 } from 'lucide-react';
 import { toast } from 'sonner';
 import * as turf from '@turf/turf';
+import html2canvas from 'html2canvas';
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
