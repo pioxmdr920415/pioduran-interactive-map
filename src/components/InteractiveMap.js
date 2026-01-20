@@ -1069,37 +1069,8 @@ export default function InteractiveMap() {
         </MapContainer>
       </div>
 
-      {/* Modern Search Bar - Top Center */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-full px-6 max-w-4xl">
-        <SearchBar onSearchResult={handleSearchResult} />
-      </div>
-
-      {/* Top Right - Quick Actions */}
-      <div className="absolute top-6 right-6 flex gap-3 z-10">
-        <button
-          data-testid="geolocation-button"
-          onClick={() => {
-            if (mapRef) {
-              mapRef.locate({ setView: true, maxZoom: 16 });
-              toast.info('Finding your location...');
-            }
-          }}
-          className="glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 border-white/40 group"
-          title="Find my location"
-        >
-          <Navigation className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors" />
-        </button>
-
-        <FileImporter onFileImport={handleFileImport} />
-        
-        <ExportMapButton 
-          onExport={handleExportMap}
-          onPrint={handlePrintMap}
-        />
-      </div>
-
       {/* Right Side - Unified Tools Panel */}
-      <div className="absolute right-6 top-24 z-10 animate-slide-in" data-testid="drawing-toolbar">
+      <div className="absolute right-6 top-[110px] z-10 animate-slide-in" data-testid="drawing-toolbar">
         <UnifiedToolsPanel 
           activeTool={activeTool}
           onToolSelect={handleToolSelect}
