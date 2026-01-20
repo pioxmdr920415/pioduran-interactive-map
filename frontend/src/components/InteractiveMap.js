@@ -803,6 +803,48 @@ export default function InteractiveMap() {
     }
   };
 
+  const handleExportMap = async () => {
+    if (!mapContainerRef.current) {
+      toast.error('Map not ready for export');
+      return;
+    }
+
+    toast.info('Preparing map export...');
+
+    try {
+      // Use html2canvas to capture the map
+      const canvas = await html2canvas(mapContainerRef.current, {
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+        scale: 2 // Higher quality
+      });
+
+      // Convert to JPEG
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+          link.download = `map-export-${timestamp}.jpg`;
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+          toast.success('Map exported as JPEG!');
+        }
+      }, 'image/jpeg', 0.95);
+    } catch (error) {
+      console.error('Export error:', error);
+      toast.error('Failed to export map');
+    }
+  };
+
+  const handlePrintMap = () => {
+    toast.info('Opening print dialog...');
+    window.print();
+  };
+
   return (
     <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app">
       {/* Main Map */}
