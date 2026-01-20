@@ -156,7 +156,7 @@ function SearchBar({ onSearchResult }) {
           data-testid="search-button"
           onClick={handleSearch}
           disabled={isSearching}
-          className="bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary/90 transition-all active:scale-95 font-medium disabled:opacity-50"
+          className="px-5 py-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-600 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
         >
           {isSearching ? 'Searching...' : 'Search'}
         </button>
