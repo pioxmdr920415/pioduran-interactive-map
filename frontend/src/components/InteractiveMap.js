@@ -1043,12 +1043,12 @@ export default function InteractiveMap() {
         </MapContainer>
       </div>
 
-      {/* Top bar - Search */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 z-100">
+      {/* Modern Search Bar - Top Center */}
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[100] w-full px-6 max-w-4xl">
         <SearchBar onSearchResult={handleSearchResult} />
       </div>
 
-      {/* Top right controls */}
+      {/* Top Right - Quick Actions */}
       <div className="absolute top-6 right-6 flex gap-3 z-10">
         <button
           data-testid="geolocation-button"
@@ -1064,11 +1064,6 @@ export default function InteractiveMap() {
           <Navigation className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors" />
         </button>
 
-        <LayerControl 
-          currentLayer={currentLayer}
-          onLayerChange={setCurrentLayer}
-        />
-
         <FileImporter onFileImport={handleFileImport} />
         
         <ExportMapButton 
@@ -1077,89 +1072,99 @@ export default function InteractiveMap() {
         />
       </div>
 
-      {/* Style Picker Button - Top Left */}
-      <div className="absolute top-6 left-6 z-10">
-        <button
-          data-testid="style-picker-toggle"
-          onClick={() => setIsStylePickerOpen(!isStylePickerOpen)}
-          className={`glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 group ${
-            isStylePickerOpen 
-              ? 'border-blue-400 bg-blue-50' 
-              : 'border-white/40'
-          }`}
-          title="Style Settings"
-        >
-          <Palette className={`w-6 h-6 transition-colors ${
-            isStylePickerOpen 
-              ? 'text-blue-700' 
-              : 'text-blue-600 group-hover:text-blue-700'
-          }`} />
-        </button>
-      </div>
-
-      {/* Style Picker Panel */}
-      <StylePickerPanel 
-        isOpen={isStylePickerOpen}
-        onClose={() => setIsStylePickerOpen(false)}
-        currentStyle={currentStyle}
-        onStyleChange={setCurrentStyle}
-        activeTool={activeTool}
-      />
-
-      {/* Right toolbar - Drawing tools */}
-      <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
-        <DrawingToolbar
+      {/* Right Side - Unified Tools Panel */}
+      <div className="absolute right-6 top-24 z-10 animate-slide-in" data-testid="drawing-toolbar">
+        <UnifiedToolsPanel 
           activeTool={activeTool}
           onToolSelect={handleToolSelect}
           onClearDrawings={clearDrawings}
           drawingsCount={drawings.length}
+          onStylePickerToggle={() => setIsStylePickerOpen(!isStylePickerOpen)}
+          isStylePickerOpen={isStylePickerOpen}
+          currentLayer={currentLayer}
+          onLayerChange={setCurrentLayer}
+          mapLayers={MAP_LAYERS}
         />
       </div>
 
-      {/* Bottom left - Add marker toggle */}
-      <div className="absolute bottom-6 left-6 z-10">
+      {/* Style Picker Panel - Positioned near Tools Panel */}
+      {isStylePickerOpen && (
+        <div className="absolute right-[340px] top-24 z-50 animate-slide-in">
+          <StylePickerPanel 
+            isOpen={isStylePickerOpen}
+            onClose={() => setIsStylePickerOpen(false)}
+            currentStyle={currentStyle}
+            onStyleChange={setCurrentStyle}
+            activeTool={activeTool}
+          />
+        </div>
+      )}
+
+      {/* Bottom Left - Marker & Route Controls */}
+      <div className="absolute bottom-6 left-6 z-10 flex flex-col gap-3">
         <button
           data-testid="add-marker-button"
           onClick={() => {
             setIsAddingMarker(!isAddingMarker);
             toast.info(isAddingMarker ? 'Marker mode disabled' : 'Click on map to add marker');
           }}
-          className={`glass-panel px-7 py-4 rounded-2xl font-manrope font-bold transition-all active:scale-95 flex items-center gap-3 shadow-xl border-2 ${
+          className={`glass-panel px-6 py-4 rounded-2xl font-manrope font-bold transition-all active:scale-95 flex items-center gap-3 shadow-xl border-2 ${
             isAddingMarker 
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white pulse-glow border-blue-400' 
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white pulse-glow border-blue-400' 
               : 'hover:shadow-2xl text-slate-700 border-white/40 hover:bg-white'
           }`}
         >
           <MapPin className="w-6 h-6" />
           <span className="text-base">{isAddingMarker ? 'Click Map to Add' : 'Add Marker'}</span>
         </button>
-      </div>
 
-      {/* Bottom right - Route planner */}
-      <div className="absolute bottom-6 right-6 z-10">
         <RoutePlanner 
           map={mapRef}
           onRouteCalculated={handleRouteCalculated}
         />
       </div>
 
-      {/* Info panel */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 glass-panel px-6 py-3 rounded-2xl z-10">
-        <div className="flex items-center gap-6 font-manrope">
-          <div className="text-sm">
-            <span className="text-slate-600">Markers:</span>
-            <span className="ml-2 font-bold text-primary" data-testid="marker-count">{markers.length}</span>
-          </div>
-          <div className="text-sm">
-            <span className="text-slate-600">Drawings:</span>
-            <span className="ml-2 font-bold text-primary">{drawings.length}</span>
-          </div>
-          {route && (
-            <div className="text-sm">
-              <span className="text-slate-600">Route:</span>
-              <span className="ml-2 font-bold text-primary">{route.distance} km</span>
+      {/* Bottom Center - Enhanced Info Panel */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10">
+        <div className="glass-panel px-8 py-4 rounded-2xl shadow-xl border-2 border-white/40">
+          <div className="flex items-center gap-8 font-manrope">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                <MapPin className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-500 block">Markers</span>
+                <span className="font-bold text-slate-900 text-lg" data-testid="marker-count">{markers.length}</span>
+              </div>
             </div>
-          )}
+            
+            <div className="w-px h-10 bg-slate-200"></div>
+            
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <Pencil className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <span className="text-xs text-slate-500 block">Drawings</span>
+                <span className="font-bold text-slate-900 text-lg">{drawings.length}</span>
+              </div>
+            </div>
+            
+            {route && (
+              <>
+                <div className="w-px h-10 bg-slate-200"></div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                    <Route className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <span className="text-xs text-slate-500 block">Route</span>
+                    <span className="font-bold text-slate-900 text-lg">{route.distance} km</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
