@@ -817,7 +817,7 @@ export default function InteractiveMap() {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app" ref={mapContainerRef}>
+    <div className="relative w-screen h-screen overflow-hidden bg-slate-50" data-testid="map-app" ref={mapContainerRef}>
       {/* Header with integrated search and actions */}
       <Header 
         searchComponent={<SearchBar onSearchResult={handleSearchResult} />}
@@ -846,9 +846,31 @@ export default function InteractiveMap() {
           </>
         }
       />
+
+      {/* Sidebar - Collapsible */}
+      <Sidebar 
+        activeTool={activeTool}
+        onToolSelect={handleToolSelect}
+        onClearDrawings={clearDrawings}
+        drawingsCount={drawings.length}
+        currentStyle={currentStyle}
+        onStyleChange={setCurrentStyle}
+        currentLayer={currentLayer}
+        onLayerChange={setCurrentLayer}
+        mapLayers={MAP_LAYERS}
+        markersCount={markers.length}
+        routeDistance={route?.distance}
+        isOpen={isSidebarOpen}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
       
-      {/* Main Map */}
-      <div className="map-container pt-[92px]" data-testid="map-container" style={{ height: '100vh' }}>
+      {/* Main Map Container */}
+      <div 
+        className={`absolute top-[92px] bottom-0 right-0 transition-all duration-300 ${
+          isSidebarOpen ? 'left-[380px]' : 'left-0'
+        }`}
+        data-testid="map-container"
+      >
         <MapContainer
           center={mapCenter}
           zoom={12}
