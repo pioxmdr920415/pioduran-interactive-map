@@ -259,6 +259,21 @@ frontend:
         agent: "main"
         comment: "Active drawing previews (while drawing) show current style settings in real-time. Users see exactly how their drawing will look before completing it."
 
+  - task: "KML/GeoJSON File Import"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/InteractiveMap.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported: KML/GeoJSON import not working"
+      - working: "NA"
+        agent: "main"
+        comment: "Fixed KML/GeoJSON import functionality. Changes: 1) Added toGeoJSON library import, 2) Replaced basic KML parser with proper toGeoJSON.kml() implementation, 3) Enhanced handleFileImport to support all geometry types (Point, LineString, Polygon, MultiLineString, MultiPolygon), 4) Added proper error handling and validation, 5) Points imported as markers, LineStrings/Polygons imported as drawings with style preservation, 6) Added KMZ support to file accept list, 7) Map auto-fits to imported features, 8) Detailed success messages showing count of imported items."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
