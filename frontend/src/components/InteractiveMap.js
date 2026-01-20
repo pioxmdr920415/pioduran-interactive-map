@@ -1145,9 +1145,9 @@ export default function InteractiveMap() {
               );
             }
             if (drawing.type === 'polygon') {
-              const areaDisplay = drawing.areaKm >= 1 
+              const areaDisplay = (drawing.areaKm !== undefined && drawing.areaKm >= 1) 
                 ? `${drawing.areaKm.toFixed(2)} km²` 
-                : `${drawing.area.toFixed(2)} m²`;
+                : (drawing.area !== undefined ? `${drawing.area.toFixed(2)} m²` : 'N/A');
               return (
                 <LeafletPolygon
                   key={drawing.id}
@@ -1164,7 +1164,9 @@ export default function InteractiveMap() {
                     <div className="p-2">
                       <h3 className="font-manrope font-bold text-slate-900">Polygon</h3>
                       <p className="text-sm text-slate-600">Area: {areaDisplay}</p>
-                      <p className="text-sm text-slate-600">Perimeter: {drawing.perimeter.toFixed(2)} km</p>
+                      {drawing.perimeter !== undefined && (
+                        <p className="text-sm text-slate-600">Perimeter: {drawing.perimeter.toFixed(2)} km</p>
+                      )}
                     </div>
                   </Popup>
                 </LeafletPolygon>
