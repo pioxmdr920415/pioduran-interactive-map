@@ -1086,7 +1086,7 @@ export default function InteractiveMap() {
 
       {/* Style Picker Panel - Positioned near Tools Panel */}
       {isStylePickerOpen && (
-        <div className="absolute right-[340px] top-24 z-50 animate-slide-in">
+        <div className="absolute right-[340px] top-[110px] z-50 animate-slide-in">
           <StylePickerPanel 
             isOpen={isStylePickerOpen}
             onClose={() => setIsStylePickerOpen(false)}
