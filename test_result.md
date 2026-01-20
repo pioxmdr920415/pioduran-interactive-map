@@ -273,6 +273,12 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Fixed KML/GeoJSON import functionality. Changes: 1) Added toGeoJSON library import, 2) Replaced basic KML parser with proper toGeoJSON.kml() implementation, 3) Enhanced handleFileImport to support all geometry types (Point, LineString, Polygon, MultiLineString, MultiPolygon), 4) Added proper error handling and validation, 5) Points imported as markers, LineStrings/Polygons imported as drawings with style preservation, 6) Added KMZ support to file accept list, 7) Map auto-fits to imported features, 8) Detailed success messages showing count of imported items."
+      - working: false
+        agent: "user"
+        comment: "ERROR: Cannot read properties of undefined (reading 'toFixed'). Runtime error when accessing drawing properties."
+      - working: "NA"
+        agent: "main"
+        comment: "FIXED runtime error. Issues: 1) Missing distance/area/perimeter calculations for imported drawings, 2) Used wrong property name 'positions' instead of 'points', 3) Used direct properties instead of 'style' object. Fixed by: 1) Added calculateDistance and calculatePolygonMetrics helper functions using turf.js, 2) Changed 'positions' to 'points' to match existing drawing structure, 3) Wrapped all style properties in 'style' object, 4) Added null checks in rendering (drawing.distance !== undefined), 5) Added proper fallback values using optional chaining. App compiled successfully and running."
 
 metadata:
   created_by: "main_agent"
