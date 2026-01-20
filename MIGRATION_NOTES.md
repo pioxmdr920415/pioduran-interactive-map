@@ -1,15 +1,14 @@
 # Project Restructuring - Migration Notes
 
-**Date:** January 20, 2025
+**Date:** January 20, 2025 (Updated: Current)
 
 ## Changes Made
 
 ### Directory Structure
-- **Before:** Files were in `/app/frontend/` subdirectory
-- **After:** All files moved to `/app/` root directory
-- **Deleted:** `/app/frontend/` folder removed
+- **Structure:** Files are in `/app/frontend/` subdirectory (required by supervisor configuration)
+- **Status:** Frontend application fully operational
 
-### Files Moved to Root
+### Files in /app/frontend/
 - `src/` - Source code directory
 - `public/` - Static assets
 - `node_modules/` - Dependencies
@@ -24,48 +23,41 @@
   - `components.json`
 - `plugins/` - Plugin directory
 
-### Configuration Updates
-- Updated supervisor configuration to run from `/app` instead of `/app/frontend`
-- Frontend service now starts from root directory
-
 ### Service Status
-✅ Frontend: Running on port 3000 from `/app`
+✅ Frontend: Running on port 3000 from `/app/frontend`
 ❌ Backend: Not used (removed per project requirements)
 ✅ MongoDB: Running (not currently used)
 
-## New Project Structure
+## Current Project Structure
 
 ```
 /app/
-├── src/                    # React source code
-├── public/                 # Static files
-├── plugins/                # Plugins
-├── node_modules/          # Dependencies
-├── test_reports/          # Test results
-├── tests/                 # Test files
-├── package.json           # Dependencies
-├── yarn.lock              # Lock file
-├── .env                   # Environment config
-├── craco.config.js        # Build config
-├── tailwind.config.js     # Tailwind config
-├── postcss.config.js      # PostCSS config
-├── jsconfig.json          # JS config
-├── components.json        # Components config
-├── README.md              # Documentation
-├── STYLE_FEATURES.md      # Style documentation
-└── test_result.md         # Test results
+├── frontend/              # Frontend application
+│   ├── src/              # React source code
+│   ├── public/           # Static files
+│   ├── plugins/          # Plugins
+│   ├── node_modules/     # Dependencies
+│   ├── package.json      # Dependencies
+│   ├── yarn.lock         # Lock file
+│   ├── .env              # Environment config
+│   ├── craco.config.js   # Build config
+│   ├── tailwind.config.js # Tailwind config
+│   ├── postcss.config.js # PostCSS config
+│   ├── jsconfig.json     # JS config
+│   └── components.json   # Components config
+├── test_reports/         # Test results
+├── tests/                # Test files
+├── README.md             # Documentation
+├── STYLE_FEATURES.md     # Style documentation
+└── test_result.md        # Test results
 ```
 
-## Benefits of New Structure
-1. **Cleaner root directory** - Direct access to all source files
-2. **True SPA structure** - No unnecessary nesting
-3. **Easier navigation** - Shorter paths
-4. **Standard React setup** - Matches typical React project structure
-5. **Simplified deployment** - Root-level configuration
+## Commands
+All commands run from `/app/frontend` directory:
+- `cd /app/frontend && yarn install` - Install dependencies
+- `cd /app/frontend && yarn start` - Start development server
+- `cd /app/frontend && yarn build` - Build for production
 
-## Commands Still Work
-- `yarn install` - Install dependencies
-- `yarn start` - Start development server
-- `yarn build` - Build for production
-
-All commands now run from `/app` root directory.
+Or use supervisor:
+- `sudo supervisorctl restart frontend` - Restart frontend service
+- `sudo supervisorctl status` - Check service status
