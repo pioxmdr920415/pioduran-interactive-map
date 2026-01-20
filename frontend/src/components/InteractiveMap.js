@@ -194,12 +194,12 @@ function LayerControl({ currentLayer, onLayerChange }) {
   return (
     <div className="relative" data-testid="layer-control">
       <button
-        data-testid="layer-button"
+        data-testid="layer-control-toggle"
         onClick={() => setIsOpen(!isOpen)}
-        className="glass-panel p-3 rounded-xl hover:shadow-lg transition-all active:scale-95"
-        title="Change map style"
+        className="glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 border-white/40 group"
+        title="Change map layer"
       >
-        <Layers className="w-6 h-6 text-slate-700" />
+        <Layers className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors" />
       </button>
 
       {isOpen && (
