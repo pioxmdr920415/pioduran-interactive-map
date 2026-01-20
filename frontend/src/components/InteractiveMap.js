@@ -761,8 +761,37 @@ export default function InteractiveMap() {
                 />
               );
             }
+            if (drawing.type === 'measure') {
+              return (
+                <Polyline
+                  key={drawing.id}
+                  positions={drawing.points}
+                  color="#EF4444"
+                  weight={3}
+                  dashArray="5, 10"
+                >
+                  <Popup>
+                    <div className="p-2">
+                      <h3 className="font-manrope font-bold text-slate-900">Distance</h3>
+                      <p className="text-sm text-slate-600">{drawing.distance.toFixed(2)} km</p>
+                    </div>
+                  </Popup>
+                </Polyline>
+              );
+            }
             return null;
           })}
+
+          {/* Active measuring line */}
+          {activeTool === 'measure' && measurePoints.length > 0 && (
+            <Polyline
+              positions={measurePoints}
+              color="#EF4444"
+              weight={3}
+              dashArray="5, 10"
+              opacity={0.7}
+            />
+          )}
         </MapContainer>
       </div>
 
