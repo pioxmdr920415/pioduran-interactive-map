@@ -1063,7 +1063,7 @@ export default function InteractiveMap() {
       </div>
 
       {/* Top bar - Search */}
-      <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 z-100">
         <SearchBar onSearchResult={handleSearchResult} />
       </div>
 
