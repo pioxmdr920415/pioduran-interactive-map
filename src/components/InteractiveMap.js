@@ -91,7 +91,7 @@ function GeolocationButton({ onLocationFound }) {
   return null;
 }
 
-// Modern Search component
+// Modern Search component - Compact version for header
 function SearchBar({ onSearchResult }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -129,13 +129,12 @@ function SearchBar({ onSearchResult }) {
   };
 
   return (
-    <div className="relative w-full max-w-2xl" data-testid="search-container">
-      <div className="relative group">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-        <div className="relative glass-panel rounded-2xl p-2 shadow-2xl border-2 border-white/40 backdrop-blur-xl">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 shadow-lg">
-              <Search className="w-6 h-6 text-white" />
+    <div className="relative w-full" data-testid="search-container">
+      <div className="relative">
+        <div className="relative glass-panel rounded-xl p-1.5 shadow-lg border border-white/40 backdrop-blur-xl">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/20">
+              <Search className="w-5 h-5 text-white" />
             </div>
             <input
               type="text"
@@ -144,7 +143,7 @@ function SearchBar({ onSearchResult }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400 font-medium text-lg py-3"
+              className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/70 font-medium py-2 px-2"
             />
             {searchQuery && (
               <button
@@ -152,16 +151,16 @@ function SearchBar({ onSearchResult }) {
                   setSearchQuery('');
                   setShowResults(false);
                 }}
-                className="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-100/50 rounded-xl transition-all"
+                className="text-white/70 hover:text-white p-1.5 hover:bg-white/10 rounded-lg transition-all"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             )}
             <button
               data-testid="search-button"
               onClick={handleSearch}
               disabled={isSearching}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl text-base"
+              className="px-5 py-2.5 bg-white/20 hover:bg-white/30 text-white rounded-lg font-bold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSearching ? (
                 <span className="flex items-center gap-2">
@@ -177,25 +176,25 @@ function SearchBar({ onSearchResult }) {
       </div>
 
       {showResults && results.length > 0 && (
-        <div className="absolute top-full mt-3 w-full glass-panel rounded-2xl overflow-hidden animate-slide-in z-50 shadow-2xl border-2 border-white/40">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-2 border-b border-slate-200/50">
+        <div className="absolute top-full mt-2 w-full glass-panel rounded-xl overflow-hidden animate-slide-in z-50 shadow-2xl border border-white/40">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-2 border-b border-slate-200/50">
             <p className="text-sm font-semibold text-slate-700">{results.length} locations found</p>
           </div>
-          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+          <div className="max-h-[300px] overflow-y-auto custom-scrollbar bg-white">
             {results.map((result, index) => (
               <button
                 key={index}
                 data-testid={`search-result-${index}`}
                 onClick={() => selectResult(result)}
-                className="w-full text-left p-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all border-b border-slate-200/50 last:border-0 group"
+                className="w-full text-left p-3 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all border-b border-slate-200/50 last:border-0 group"
               >
                 <div className="flex items-start gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 group-hover:scale-110 transition-transform shadow-md">
-                    <MapPin className="w-5 h-5 text-white flex-shrink-0" />
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 group-hover:scale-110 transition-transform shadow-md flex-shrink-0">
+                    <MapPin className="w-4 h-4 text-white" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <span className="text-sm text-slate-700 font-medium line-clamp-2 group-hover:text-slate-900">{result.display_name}</span>
-                    <span className="text-xs text-slate-500 mt-1 block">Click to navigate</span>
+                    <span className="text-xs text-slate-500 mt-0.5 block">Click to navigate</span>
                   </div>
                 </div>
               </button>
