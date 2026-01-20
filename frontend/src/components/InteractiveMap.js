@@ -1144,6 +1144,35 @@ export default function InteractiveMap() {
         />
       </div>
 
+      {/* Style Picker Button - Top Left */}
+      <div className="absolute top-6 left-6 z-10">
+        <button
+          data-testid="style-picker-toggle"
+          onClick={() => setIsStylePickerOpen(!isStylePickerOpen)}
+          className={`glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 group ${
+            isStylePickerOpen 
+              ? 'border-blue-400 bg-blue-50' 
+              : 'border-white/40'
+          }`}
+          title="Style Settings"
+        >
+          <Palette className={`w-6 h-6 transition-colors ${
+            isStylePickerOpen 
+              ? 'text-blue-700' 
+              : 'text-blue-600 group-hover:text-blue-700'
+          }`} />
+        </button>
+      </div>
+
+      {/* Style Picker Panel */}
+      <StylePickerPanel 
+        isOpen={isStylePickerOpen}
+        onClose={() => setIsStylePickerOpen(false)}
+        currentStyle={currentStyle}
+        onStyleChange={setCurrentStyle}
+        activeTool={activeTool}
+      />
+
       {/* Right toolbar - Drawing tools */}
       <div className="absolute right-6 top-1/2 -translate-y-1/2 z-10">
         <DrawingToolbar
