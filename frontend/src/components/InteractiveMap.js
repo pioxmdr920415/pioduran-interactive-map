@@ -566,8 +566,39 @@ export default function InteractiveMap() {
       setDrawings([...drawings, newDrawing]);
       toast.success('Rectangle added!');
       setActiveTool(null);
+    } else if (activeTool === 'measure') {
+      const newPoints = [...measurePoints, [latlng.lat, latlng.lng]];
+      setMeasurePoints(newPoints);
+      
+      if (newPoints.length >= 2) {
+        // Calculate distance using turf
+        const from = turf.point([newPoints[newPoints.length - 2][1], newPoints[newPoints.length - 2][0]]);
+        const to = turf.point([latlng.lng, latlng.lat]);
+        const distance = turf.distance(from, to, { units: 'kilometers' });
+        
+        // Calculate total distance
+        let totalDistance = 0;
+        for (let i = 1; i < newPoints.length; i++) {
+          const p1 = turf.point([newPoints[i - 1][1], newPoints[i - 1][0]]);
+          const p2 = turf.point([newPoints[i][1], newPoints[i][0]]);
+          totalDistance += turf.distance(p1, p2, { units: 'kilometers' });
+        }
+        
+        toast.success(`Segment: ${distance.toFixed(2)} km | Total: ${totalDistance.toFixed(2)} km`);
+        
+        // Add line to drawings
+        const newDrawing = {
+          id: Date.now(),
+          type: 'measure',
+          points: newPoints,
+          distance: totalDistance
+        };
+        setDrawings([...drawings, newDrawing]);
+      } else {
+        toast.info('Click again to measure distance');
+      }
     }
-  }, [activeTool, drawings]);
+  }, [activeTool, drawings, measurePoints]);
 
   const MapDrawingHandler = () => {
     useMapEvents({
