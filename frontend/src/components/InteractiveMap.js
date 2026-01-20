@@ -363,47 +363,43 @@ function FileImporter({ onFileImport }) {
         let geojson;
 
         if (file.name.endsWith('.geojson') || file.name.endsWith('.json')) {
+          // Parse GeoJSON
           geojson = JSON.parse(content);
-        } else if (file.name.endsWith('.kml')) {
-          // Basic KML parsing - in production, use a library like togeojson
-          toast.info('KML parsing - extracting coordinates');
-          const parser = new DOMParser();
-          const kml = parser.parseFromString(content, 'text/xml');
-          const coordinates = kml.getElementsByTagName('coordinates');
           
-          const features = [];
-          for (let i = 0; i < coordinates.length; i++) {
-            const coords = coordinates[i].textContent.trim().split(/\s+/);
-            const points = coords.map(coord => {
-              const [lng, lat] = coord.split(',').map(parseFloat);
-              return [lng, lat];
-            });
-            
-            if (points.length > 0) {
-              features.push({
-                type: 'Feature',
-                geometry: {
-                  type: points.length === 1 ? 'Point' : 'LineString',
-                  coordinates: points.length === 1 ? points[0] : points
-                },
-                properties: {}
-              });
-            }
+          // Validate GeoJSON structure
+          if (!geojson.type) {
+            throw new Error('Invalid GeoJSON: missing type property');
           }
           
-          geojson = {
-            type: 'FeatureCollection',
-            features
-          };
+          toast.success('GeoJSON parsed successfully!');
+        } else if (file.name.endsWith('.kml') || file.name.endsWith('.kmz')) {
+          // Parse KML using togeojson library
+          toast.info('Parsing KML file...');
+          const parser = new DOMParser();
+          const kml = parser.parseFromString(content, 'text/xml');
+          
+          // Check for parsing errors
+          const parserError = kml.querySelector('parsererror');
+          if (parserError) {
+            throw new Error('Invalid KML format');
+          }
+          
+          // Convert KML to GeoJSON
+          geojson = toGeoJSON.kml(kml);
+          
+          if (!geojson || !geojson.features || geojson.features.length === 0) {
+            throw new Error('No features found in KML file');
+          }
+          
+          toast.success(`KML parsed successfully! Found ${geojson.features.length} feature(s)`);
         }
 
         if (geojson) {
           onFileImport(geojson);
-          toast.success('File imported successfully!');
         }
       } catch (error) {
-        toast.error('Failed to parse file');
-        console.error(error);
+        toast.error(`Failed to parse file: ${error.message}`);
+        console.error('File import error:', error);
       }
     };
 
