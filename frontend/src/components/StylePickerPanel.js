@@ -95,24 +95,10 @@ export default function StylePickerPanel({
     );
   }
 
-  // Standalone floating panel mode
-  return (
-    <div className="absolute top-24 left-6 z-50 glass-panel rounded-2xl shadow-2xl border-2 border-white/40 w-[340px] animate-slide-in">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-200/50">
-        <div className="flex items-center gap-2">
-          <Palette className="w-5 h-5 text-blue-600" />
-          <h3 className="font-manrope font-bold text-slate-900">Style Settings</h3>
-        </div>
-        <button
-          onClick={onClose}
-          className="text-slate-400 hover:text-slate-600 p-1 hover:bg-slate-100 rounded-lg transition-all"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-
-      <div className="p-4 space-y-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
+  // Content renderer function
+  function renderContent() {
+    return (
+      <>
         {/* Active Tool Info */}
         {activeTool && (
           <div className="bg-blue-50 rounded-xl p-3 border border-blue-200">
