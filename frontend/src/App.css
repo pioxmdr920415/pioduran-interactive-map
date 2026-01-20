@@ -95,6 +95,13 @@
         padding: 0;
     }
 
+    /* Show header in print */
+    header {
+        position: static !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
     /* Hide UI controls when printing */
     .glass-panel:not(.info-panel) {
         display: none !important;
@@ -104,8 +111,9 @@
     .map-container {
         position: static !important;
         width: 100% !important;
-        height: 100vh !important;
+        height: calc(100vh - 88px) !important;
         page-break-after: avoid;
+        padding-top: 0 !important;
     }
 
     /* Keep the map visible */
