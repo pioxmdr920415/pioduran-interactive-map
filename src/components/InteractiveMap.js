@@ -413,10 +413,10 @@ function FileImporter({ onFileImport }) {
   return (
     <label
       data-testid="file-import-button"
-      className="glass-panel p-3 rounded-xl hover:shadow-lg transition-all cursor-pointer active:scale-95"
+      className="glass-panel p-3 rounded-xl hover:shadow-xl transition-all cursor-pointer active:scale-95 border border-white/40 group"
       title="Import KML/GeoJSON"
     >
-      <Upload className="w-6 h-6 text-slate-700" />
+      <Upload className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
       <input
         type="file"
         data-testid="file-input"
@@ -437,14 +437,14 @@ function ExportMapButton({ onExport, onPrint }) {
       <button
         data-testid="export-button"
         onClick={() => setIsOpen(!isOpen)}
-        className="glass-panel p-3 rounded-xl hover:shadow-lg transition-all active:scale-95"
+        className="glass-panel p-3 rounded-xl hover:shadow-xl transition-all active:scale-95 border border-white/40 group"
         title="Export/Print Map"
       >
-        <Download className="w-6 h-6 text-slate-700" />
+        <Download className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 glass-panel rounded-2xl p-2 min-w-[180px] animate-slide-in z-50">
+        <div className="absolute right-0 top-full mt-2 glass-panel rounded-xl p-2 min-w-[180px] animate-slide-in z-50 border border-slate-200 bg-white">
           <div className="space-y-1">
             <button
               data-testid="export-jpeg"
@@ -452,7 +452,7 @@ function ExportMapButton({ onExport, onPrint }) {
                 onExport();
                 setIsOpen(false);
               }}
-              className="w-full text-left px-4 py-2 rounded-xl transition-all hover:bg-slate-100 text-slate-700 flex items-center gap-2"
+              className="w-full text-left px-4 py-2.5 rounded-lg transition-all hover:bg-blue-50 text-slate-700 hover:text-blue-700 flex items-center gap-3 font-medium"
             >
               <Download className="w-4 h-4" />
               Save as JPEG
@@ -463,7 +463,7 @@ function ExportMapButton({ onExport, onPrint }) {
                 onPrint();
                 setIsOpen(false);
               }}
-              className="w-full text-left px-4 py-2 rounded-xl transition-all hover:bg-slate-100 text-slate-700 flex items-center gap-2"
+              className="w-full text-left px-4 py-2.5 rounded-lg transition-all hover:bg-blue-50 text-slate-700 hover:text-blue-700 flex items-center gap-3 font-medium"
             >
               <Printer className="w-4 h-4" />
               Print Map
