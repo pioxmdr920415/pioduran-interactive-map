@@ -715,7 +715,8 @@ export default function InteractiveMap() {
           id: Date.now(),
           type: 'measure',
           points: newPoints,
-          distance: totalDistance
+          distance: totalDistance,
+          style: { ...currentStyle }
         };
         setDrawings([...drawings, newDrawing]);
       } else {
