@@ -1184,7 +1184,9 @@ export default function InteractiveMap() {
                   <Popup>
                     <div className="p-2">
                       <h3 className="font-manrope font-bold text-slate-900">Distance</h3>
-                      <p className="text-sm text-slate-600">{drawing.distance.toFixed(2)} km</p>
+                      {drawing.distance !== undefined && (
+                        <p className="text-sm text-slate-600">{drawing.distance.toFixed(2)} km</p>
+                      )}
                     </div>
                   </Popup>
                 </Polyline>
