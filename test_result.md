@@ -267,6 +267,10 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Color & Style Picker Panel"
+    - "Per-Tool Default Colors"
+    - "Preset Color Palettes"
+    - "Real-time Style Preview"
     - "Line Drawing Tool"
     - "Polygon Drawing Tool"
     - "Export Map as JPEG"
