@@ -531,10 +531,16 @@ export default function InteractiveMap() {
   const handleToolSelect = (toolId) => {
     if (activeTool === toolId) {
       setActiveTool(null);
+      setMeasurePoints([]);
       toast.info('Tool deactivated');
     } else {
       setActiveTool(toolId);
-      toast.info(`${toolId.charAt(0).toUpperCase() + toolId.slice(1)} tool activated - Click on map`);
+      setMeasurePoints([]);
+      if (toolId === 'measure') {
+        toast.info('Click on map to start measuring distance');
+      } else {
+        toast.info(`${toolId.charAt(0).toUpperCase() + toolId.slice(1)} tool activated - Click on map`);
+      }
     }
   };
 
