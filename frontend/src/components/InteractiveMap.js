@@ -9,12 +9,13 @@ import 'leaflet-draw/dist/leaflet.draw.css';
 import { 
   MapPin, Navigation, Search, Layers, Route, Pencil, 
   Trash2, Upload, X, Target, Home, Settings, ZoomIn, 
-  ZoomOut, Circle, Square, Ruler, Download, Printer, Minus, Pentagon
+  ZoomOut, Circle, Square, Ruler, Download, Printer, Minus, Pentagon, Palette
 } from 'lucide-react';
 import { toast } from 'sonner';
 import * as turf from '@turf/turf';
 import html2canvas from 'html2canvas';
 import Header from './Header';
+import StylePickerPanel from './StylePickerPanel';
 
 // Fix for default marker icon
 delete L.Icon.Default.prototype._getIconUrl;
