@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, Circle as LeafletCircle, Rectangle as LeafletRectangle } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
