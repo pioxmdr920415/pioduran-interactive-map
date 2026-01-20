@@ -84,3 +84,46 @@
 .pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
 }
+
+/* Print styles */
+@media print {
+    @page {
+        size: landscape;
+        margin: 0.5cm;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Hide UI controls when printing */
+    .glass-panel:not(.info-panel) {
+        display: none !important;
+    }
+
+    /* Make map container full page */
+    .map-container {
+        position: static !important;
+        width: 100% !important;
+        height: 100vh !important;
+        page-break-after: avoid;
+    }
+
+    /* Keep the map visible */
+    .leaflet-container {
+        height: 100% !important;
+    }
+
+    /* Hide zoom controls and other leaflet controls */
+    .leaflet-control-container {
+        display: none !important;
+    }
+
+    /* Keep markers and drawings visible */
+    .leaflet-marker-pane,
+    .leaflet-popup-pane,
+    .leaflet-overlay-pane {
+        display: block !important;
+    }
+}
