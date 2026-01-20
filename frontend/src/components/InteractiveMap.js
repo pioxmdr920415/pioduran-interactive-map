@@ -543,7 +543,7 @@ export default function InteractiveMap() {
   const [currentLayer, setCurrentLayer] = useState('osm');
   const [isAddingMarker, setIsAddingMarker] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
-  const [mapCenter, setMapCenter] = useState([51.505, -0.09]);
+  const [mapCenter, setMapCenter] = useState([13.0534, 123.4067]); // Pio Duran, Albay
   const [drawings, setDrawings] = useState([]);
   const [activeTool, setActiveTool] = useState(null);
   const [route, setRoute] = useState(null);
