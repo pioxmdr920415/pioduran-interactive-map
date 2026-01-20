@@ -817,11 +817,37 @@ export default function InteractiveMap() {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app" ref={mapContainerRef}>
-      {/* Header */}
-      <Header />
+      {/* Header with integrated search and actions */}
+      <Header 
+        searchComponent={<SearchBar onSearchResult={handleSearchResult} />}
+        actionButtons={
+          <>
+            <button
+              data-testid="geolocation-button"
+              onClick={() => {
+                if (mapRef) {
+                  mapRef.locate({ setView: true, maxZoom: 16 });
+                  toast.info('Finding your location...');
+                }
+              }}
+              className="glass-panel p-3 rounded-xl hover:shadow-xl transition-all active:scale-95 border border-white/40 group"
+              title="Find my location"
+            >
+              <Navigation className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            </button>
+
+            <FileImporter onFileImport={handleFileImport} />
+            
+            <ExportMapButton 
+              onExport={handleExportMap}
+              onPrint={handlePrintMap}
+            />
+          </>
+        }
+      />
       
       {/* Main Map */}
-      <div className="map-container pt-[88px]" data-testid="map-container" style={{ height: '100vh' }}>
+      <div className="map-container pt-[92px]" data-testid="map-container" style={{ height: '100vh' }}>
         <MapContainer
           center={mapCenter}
           zoom={12}
