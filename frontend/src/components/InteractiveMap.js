@@ -800,7 +800,7 @@ export default function InteractiveMap() {
           const newLine = {
             id: Date.now() + index,
             type: 'line',
-            positions,
+            points: positions,
             distance,
             color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
             weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
@@ -820,7 +820,7 @@ export default function InteractiveMap() {
           const newPolygon = {
             id: Date.now() + index,
             type: 'polygon',
-            positions,
+            points: positions,
             area: metrics.area,
             areaKm: metrics.areaKm,
             perimeter: metrics.perimeter,
@@ -846,7 +846,7 @@ export default function InteractiveMap() {
             const newLine = {
               id: Date.now() + index + lineIndex * 1000,
               type: 'line',
-              positions,
+              points: positions,
               distance,
               color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
               weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
@@ -867,7 +867,7 @@ export default function InteractiveMap() {
             const newPolygon = {
               id: Date.now() + index + polyIndex * 1000,
               type: 'polygon',
-              positions,
+              points: positions,
               area: metrics.area,
               areaKm: metrics.areaKm,
               perimeter: metrics.perimeter,
