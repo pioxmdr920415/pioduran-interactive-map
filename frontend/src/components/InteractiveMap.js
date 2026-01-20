@@ -1077,10 +1077,10 @@ export default function InteractiveMap() {
               toast.info('Finding your location...');
             }
           }}
-          className="glass-panel p-3 rounded-xl hover:shadow-lg transition-all active:scale-95"
+          className="glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 border-white/40 group"
           title="Find my location"
         >
-          <Navigation className="w-6 h-6 text-slate-700" />
+          <Navigation className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors" />
         </button>
 
         <LayerControl 
