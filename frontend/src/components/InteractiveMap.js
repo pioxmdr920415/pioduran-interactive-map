@@ -163,18 +163,20 @@ function SearchBar({ onSearchResult }) {
       </div>
 
       {showResults && results.length > 0 && (
-        <div className="absolute top-full mt-2 w-full glass-panel rounded-2xl overflow-hidden animate-slide-in z-50">
-          <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
+        <div className="absolute top-full mt-3 w-full glass-panel rounded-2xl overflow-hidden animate-slide-in z-50 shadow-xl border-2 border-white/40">
+          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
             {results.map((result, index) => (
               <button
                 key={index}
                 data-testid={`search-result-${index}`}
                 onClick={() => selectResult(result)}
-                className="w-full text-left p-3 hover:bg-primary/10 transition-colors border-b border-slate-200/50 last:border-0"
+                className="w-full text-left p-4 hover:bg-blue-50 transition-colors border-b border-slate-200/50 last:border-0 group"
               >
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                  <span className="text-sm text-slate-700 line-clamp-2">{result.display_name}</span>
+                <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                    <MapPin className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                  </div>
+                  <span className="text-sm text-slate-700 font-medium line-clamp-2 flex-1 group-hover:text-slate-900">{result.display_name}</span>
                 </div>
               </button>
             ))}
