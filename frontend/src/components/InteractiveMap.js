@@ -846,7 +846,7 @@ export default function InteractiveMap() {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app">
+    <div className="relative w-screen h-screen overflow-hidden" data-testid="map-app" ref={mapContainerRef}>
       {/* Main Map */}
       <div className="map-container" data-testid="map-container">
         <MapContainer
