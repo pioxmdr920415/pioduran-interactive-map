@@ -615,6 +615,8 @@ export default function InteractiveMap() {
 
   const clearDrawings = () => {
     setDrawings([]);
+    setMeasurePoints([]);
+    setActiveTool(null);
     toast.success('Drawings cleared');
   };
 
