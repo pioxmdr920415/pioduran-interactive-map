@@ -630,6 +630,32 @@ export default function InteractiveMap() {
       setDrawings([...drawings, newDrawing]);
       toast.success('Rectangle added!');
       setActiveTool(null);
+    } else if (activeTool === 'line') {
+      // Add point to line
+      const newPoints = [...drawingPoints, [latlng.lat, latlng.lng]];
+      setDrawingPoints(newPoints);
+      
+      if (newPoints.length === 1) {
+        toast.info('Click to add more points, double-click to finish');
+      } else {
+        // Calculate distance
+        const from = turf.point([newPoints[newPoints.length - 2][1], newPoints[newPoints.length - 2][0]]);
+        const to = turf.point([latlng.lng, latlng.lat]);
+        const distance = turf.distance(from, to, { units: 'kilometers' });
+        toast.success(`Segment added: ${distance.toFixed(2)} km`);
+      }
+    } else if (activeTool === 'polygon') {
+      // Add point to polygon
+      const newPoints = [...drawingPoints, [latlng.lat, latlng.lng]];
+      setDrawingPoints(newPoints);
+      
+      if (newPoints.length === 1) {
+        toast.info('Click to add more points, double-click to finish');
+      } else if (newPoints.length === 2) {
+        toast.info('Add at least 3 points for a polygon');
+      } else {
+        toast.success(`Point ${newPoints.length} added`);
+      }
     } else if (activeTool === 'measure') {
       const newPoints = [...measurePoints, [latlng.lat, latlng.lng]];
       setMeasurePoints(newPoints);
@@ -662,7 +688,7 @@ export default function InteractiveMap() {
         toast.info('Click again to measure distance');
       }
     }
-  }, [activeTool, drawings, measurePoints]);
+  }, [activeTool, drawings, measurePoints, drawingPoints]);
 
   const MapDrawingHandler = () => {
     useMapEvents({
