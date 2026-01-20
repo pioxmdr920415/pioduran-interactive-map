@@ -644,7 +644,8 @@ export default function InteractiveMap() {
         id: Date.now(),
         type: 'circle',
         center: [latlng.lat, latlng.lng],
-        radius: 500 // 500 meters
+        radius: 500, // 500 meters
+        style: { ...currentStyle }
       };
       setDrawings([...drawings, newDrawing]);
       toast.success('Circle added!');
@@ -657,7 +658,8 @@ export default function InteractiveMap() {
         bounds: [
           [latlng.lat - offset, latlng.lng - offset],
           [latlng.lat + offset, latlng.lng + offset]
-        ]
+        ],
+        style: { ...currentStyle }
       };
       setDrawings([...drawings, newDrawing]);
       toast.success('Rectangle added!');
