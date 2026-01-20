@@ -498,6 +498,7 @@ export default function InteractiveMap() {
   const [route, setRoute] = useState(null);
   const [importedData, setImportedData] = useState(null);
   const [mapRef, setMapRef] = useState(null);
+  const [measurePoints, setMeasurePoints] = useState([]);
 
   const handleMapClick = useCallback((latlng) => {
     const newMarker = {
