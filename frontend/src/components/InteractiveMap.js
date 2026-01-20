@@ -750,24 +750,116 @@ export default function InteractiveMap() {
   const handleFileImport = (geojson) => {
     setImportedData(geojson);
     
-    // Extract markers from GeoJSON
+    // Process GeoJSON features
     if (geojson.type === 'FeatureCollection') {
-      const newMarkers = geojson.features
-        .filter(f => f.geometry.type === 'Point')
-        .map((feature, index) => ({
-          id: Date.now() + index,
-          position: [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          title: feature.properties?.name || `Imported ${index + 1}`,
-          description: feature.properties?.description || 'Imported from file'
-        }));
+      let importedMarkers = 0;
+      let importedDrawings = 0;
+      const allBounds = [];
       
-      setMarkers([...markers, ...newMarkers]);
+      geojson.features.forEach((feature, index) => {
+        const geometry = feature.geometry;
+        const properties = feature.properties || {};
+        
+        if (geometry.type === 'Point') {
+          // Import as marker
+          const newMarker = {
+            id: Date.now() + index,
+            position: [geometry.coordinates[1], geometry.coordinates[0]],
+            title: properties.name || `Imported Point ${index + 1}`,
+            description: properties.description || 'Imported from file'
+          };
+          setMarkers(prev => [...prev, newMarker]);
+          allBounds.push(newMarker.position);
+          importedMarkers++;
+        } else if (geometry.type === 'LineString') {
+          // Import as line drawing
+          const positions = geometry.coordinates.map(coord => [coord[1], coord[0]]);
+          const newLine = {
+            id: Date.now() + index,
+            type: 'line',
+            positions,
+            color: properties.stroke || currentStyle.strokeColor,
+            weight: properties['stroke-width'] || currentStyle.strokeWidth,
+            opacity: properties['stroke-opacity'] || currentStyle.strokeOpacity / 100,
+            dashArray: currentStyle.lineStyle === 'dashed' ? '10, 10' : 
+                       currentStyle.lineStyle === 'dotted' ? '2, 8' : 
+                       currentStyle.lineStyle === 'dashdot' ? '10, 5, 2, 5' : null
+          };
+          setDrawings(prev => [...prev, newLine]);
+          positions.forEach(pos => allBounds.push(pos));
+          importedDrawings++;
+        } else if (geometry.type === 'Polygon') {
+          // Import as polygon drawing
+          const positions = geometry.coordinates[0].map(coord => [coord[1], coord[0]]);
+          const newPolygon = {
+            id: Date.now() + index,
+            type: 'polygon',
+            positions,
+            color: properties.stroke || currentStyle.strokeColor,
+            fillColor: properties.fill || currentStyle.fillColor,
+            weight: properties['stroke-width'] || currentStyle.strokeWidth,
+            fillOpacity: properties['fill-opacity'] || currentStyle.fillOpacity / 100,
+            opacity: properties['stroke-opacity'] || currentStyle.strokeOpacity / 100
+          };
+          setDrawings(prev => [...prev, newPolygon]);
+          positions.forEach(pos => allBounds.push(pos));
+          importedDrawings++;
+        } else if (geometry.type === 'MultiLineString') {
+          // Import each line separately
+          geometry.coordinates.forEach((lineCoords, lineIndex) => {
+            const positions = lineCoords.map(coord => [coord[1], coord[0]]);
+            const newLine = {
+              id: Date.now() + index + lineIndex * 1000,
+              type: 'line',
+              positions,
+              color: properties.stroke || currentStyle.strokeColor,
+              weight: properties['stroke-width'] || currentStyle.strokeWidth,
+              opacity: properties['stroke-opacity'] || currentStyle.strokeOpacity / 100
+            };
+            setDrawings(prev => [...prev, newLine]);
+            positions.forEach(pos => allBounds.push(pos));
+            importedDrawings++;
+          });
+        } else if (geometry.type === 'MultiPolygon') {
+          // Import each polygon separately
+          geometry.coordinates.forEach((polyCoords, polyIndex) => {
+            const positions = polyCoords[0].map(coord => [coord[1], coord[0]]);
+            const newPolygon = {
+              id: Date.now() + index + polyIndex * 1000,
+              type: 'polygon',
+              positions,
+              color: properties.stroke || currentStyle.strokeColor,
+              fillColor: properties.fill || currentStyle.fillColor,
+              weight: properties['stroke-width'] || currentStyle.strokeWidth,
+              fillOpacity: properties['fill-opacity'] || currentStyle.fillOpacity / 100,
+              opacity: properties['stroke-opacity'] || currentStyle.strokeOpacity / 100
+            };
+            setDrawings(prev => [...prev, newPolygon]);
+            positions.forEach(pos => allBounds.push(pos));
+            importedDrawings++;
+          });
+        }
+      });
       
       // Fit map to imported data
-      if (mapRef && newMarkers.length > 0) {
-        const bounds = L.latLngBounds(newMarkers.map(m => m.position));
+      if (mapRef && allBounds.length > 0) {
+        const bounds = L.latLngBounds(allBounds);
         mapRef.fitBounds(bounds, { padding: [50, 50] });
       }
+      
+      // Show success message
+      const messages = [];
+      if (importedMarkers > 0) messages.push(`${importedMarkers} marker(s)`);
+      if (importedDrawings > 0) messages.push(`${importedDrawings} drawing(s)`);
+      
+      if (messages.length > 0) {
+        toast.success(`Imported ${messages.join(' and ')} successfully!`);
+      } else {
+        toast.warning('No compatible features found in file');
+      }
+    } else if (geojson.type === 'Feature') {
+      // Handle single feature
+      handleFileImport({ type: 'FeatureCollection', features: [geojson] });
     }
   };
 
