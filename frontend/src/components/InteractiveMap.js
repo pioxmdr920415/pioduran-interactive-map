@@ -1114,14 +1114,14 @@ export default function InteractiveMap() {
             setIsAddingMarker(!isAddingMarker);
             toast.info(isAddingMarker ? 'Marker mode disabled' : 'Click on map to add marker');
           }}
-          className={`glass-panel px-6 py-3 rounded-2xl font-manrope font-semibold transition-all active:scale-95 flex items-center gap-2 ${
+          className={`glass-panel px-7 py-4 rounded-2xl font-manrope font-bold transition-all active:scale-95 flex items-center gap-3 shadow-xl border-2 ${
             isAddingMarker 
-              ? 'bg-primary text-white pulse-glow' 
-              : 'hover:shadow-lg text-slate-700'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white pulse-glow border-blue-400' 
+              : 'hover:shadow-2xl text-slate-700 border-white/40 hover:bg-white'
           }`}
         >
-          <MapPin className="w-5 h-5" />
-          {isAddingMarker ? 'Click Map to Add' : 'Add Marker'}
+          <MapPin className="w-6 h-6" />
+          <span className="text-base">{isAddingMarker ? 'Click Map to Add' : 'Add Marker'}</span>
         </button>
       </div>
 
