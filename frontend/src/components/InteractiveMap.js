@@ -233,9 +233,11 @@ function DrawingToolbar({
   drawingsCount 
 }) {
   const tools = [
+    { id: 'line', icon: Minus, label: 'Draw Line' },
+    { id: 'polygon', icon: Pentagon, label: 'Draw Polygon' },
     { id: 'circle', icon: Circle, label: 'Draw Circle' },
     { id: 'rectangle', icon: Square, label: 'Draw Rectangle' },
-    { id: 'measure', icon: Ruler, label: 'Measure Distance' },
+    { id: 'measure', icon: Ruler, label: 'Measure Distance/Area' },
   ];
 
   return (
