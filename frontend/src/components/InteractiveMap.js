@@ -616,6 +616,12 @@ export default function InteractiveMap() {
       setActiveTool(toolId);
       setMeasurePoints([]);
       setDrawingPoints([]);
+      
+      // Apply default style for the selected tool
+      if (DEFAULT_TOOL_STYLES[toolId]) {
+        setCurrentStyle(DEFAULT_TOOL_STYLES[toolId]);
+      }
+      
       if (toolId === 'measure') {
         toast.info('Click on map to start measuring distance/area');
       } else if (toolId === 'line') {
