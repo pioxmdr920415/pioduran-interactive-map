@@ -105,17 +105,17 @@
 user_problem_statement: "Add advanced interactive tools including marker, line, polygons, measure distance and area, and add print output where users can save the map and other overlays as a JPEG"
 
 backend:
-  - task: "Backend API endpoints"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
+  - task: "Backend removed"
+    implemented: false
+    working: "NA"
+    file: "N/A - Backend deleted"
     stuck_count: 0
     priority: "low"
     needs_retesting: false
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "Backend already working, no changes needed for this feature"
+        comment: "Backend completely removed per user request. All API calls (search, routing) are made directly from frontend to external services (OpenStreetMap Nominatim, OSRM)."
 
 frontend:
   - task: "Line Drawing Tool"
