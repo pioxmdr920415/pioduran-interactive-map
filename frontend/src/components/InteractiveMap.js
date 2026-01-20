@@ -690,9 +690,75 @@ export default function InteractiveMap() {
     }
   }, [activeTool, drawings, measurePoints, drawingPoints]);
 
+  const handleMapDoubleClickForDrawing = useCallback((e) => {
+    if (!activeTool) return;
+    
+    // Prevent default map zoom on double click
+    L.DomEvent.stopPropagation(e);
+    
+    if (activeTool === 'line' && drawingPoints.length >= 2) {
+      // Finish line
+      let totalDistance = 0;
+      for (let i = 1; i < drawingPoints.length; i++) {
+        const p1 = turf.point([drawingPoints[i - 1][1], drawingPoints[i - 1][0]]);
+        const p2 = turf.point([drawingPoints[i][1], drawingPoints[i][0]]);
+        totalDistance += turf.distance(p1, p2, { units: 'kilometers' });
+      }
+      
+      const newDrawing = {
+        id: Date.now(),
+        type: 'line',
+        points: drawingPoints,
+        distance: totalDistance
+      };
+      setDrawings([...drawings, newDrawing]);
+      setDrawingPoints([]);
+      setActiveTool(null);
+      toast.success(`Line completed! Total distance: ${totalDistance.toFixed(2)} km`);
+    } else if (activeTool === 'polygon' && drawingPoints.length >= 3) {
+      // Finish polygon and calculate area
+      const polygonCoords = drawingPoints.map(p => [p[1], p[0]]);
+      polygonCoords.push(polygonCoords[0]); // Close the polygon
+      
+      const polygon = turf.polygon([polygonCoords]);
+      const area = turf.area(polygon); // in square meters
+      const areaKm = area / 1000000; // convert to square kilometers
+      
+      // Also calculate perimeter
+      let perimeter = 0;
+      for (let i = 1; i < drawingPoints.length; i++) {
+        const p1 = turf.point([drawingPoints[i - 1][1], drawingPoints[i - 1][0]]);
+        const p2 = turf.point([drawingPoints[i][1], drawingPoints[i][0]]);
+        perimeter += turf.distance(p1, p2, { units: 'kilometers' });
+      }
+      // Add distance from last to first point
+      const p1 = turf.point([drawingPoints[drawingPoints.length - 1][1], drawingPoints[drawingPoints.length - 1][0]]);
+      const p2 = turf.point([drawingPoints[0][1], drawingPoints[0][0]]);
+      perimeter += turf.distance(p1, p2, { units: 'kilometers' });
+      
+      const newDrawing = {
+        id: Date.now(),
+        type: 'polygon',
+        points: drawingPoints,
+        area: area,
+        areaKm: areaKm,
+        perimeter: perimeter
+      };
+      setDrawings([...drawings, newDrawing]);
+      setDrawingPoints([]);
+      setActiveTool(null);
+      
+      const areaDisplay = areaKm >= 1 
+        ? `${areaKm.toFixed(2)} km²` 
+        : `${area.toFixed(2)} m²`;
+      toast.success(`Polygon completed! Area: ${areaDisplay}, Perimeter: ${perimeter.toFixed(2)} km`);
+    }
+  }, [activeTool, drawingPoints, drawings]);
+
   const MapDrawingHandler = () => {
     useMapEvents({
-      click: handleMapClickForDrawing
+      click: handleMapClickForDrawing,
+      dblclick: handleMapDoubleClickForDrawing
     });
     return null;
   };
