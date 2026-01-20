@@ -802,12 +802,14 @@ export default function InteractiveMap() {
             type: 'line',
             points: positions,
             distance,
-            color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
-            weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
-            opacity: properties['stroke-opacity'] !== undefined 
-              ? properties['stroke-opacity'] 
-              : (currentStyle?.fillOpacity !== undefined ? currentStyle.fillOpacity / 100 : 1),
-            dashArray: null
+            style: {
+              strokeColor: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
+              strokeWidth: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
+              strokeOpacity: properties['stroke-opacity'] !== undefined 
+                ? properties['stroke-opacity'] 
+                : 1,
+              dashArray: null
+            }
           };
           setDrawings(prev => [...prev, newLine]);
           positions.forEach(pos => allBounds.push(pos));
@@ -824,15 +826,17 @@ export default function InteractiveMap() {
             area: metrics.area,
             areaKm: metrics.areaKm,
             perimeter: metrics.perimeter,
-            color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
-            fillColor: properties.fill || currentStyle?.fillColor || '#3B82F6',
-            weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
-            fillOpacity: properties['fill-opacity'] !== undefined 
-              ? properties['fill-opacity'] 
-              : (currentStyle?.fillOpacity !== undefined ? currentStyle.fillOpacity / 100 : 0.2),
-            opacity: properties['stroke-opacity'] !== undefined 
-              ? properties['stroke-opacity'] 
-              : 1
+            style: {
+              strokeColor: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
+              fillColor: properties.fill || currentStyle?.fillColor || '#3B82F6',
+              strokeWidth: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
+              fillOpacity: properties['fill-opacity'] !== undefined 
+                ? properties['fill-opacity'] 
+                : (currentStyle?.fillOpacity !== undefined ? currentStyle.fillOpacity / 100 : 0.2),
+              strokeOpacity: properties['stroke-opacity'] !== undefined 
+                ? properties['stroke-opacity'] 
+                : 1
+            }
           };
           setDrawings(prev => [...prev, newPolygon]);
           positions.forEach(pos => allBounds.push(pos));
@@ -848,11 +852,14 @@ export default function InteractiveMap() {
               type: 'line',
               points: positions,
               distance,
-              color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
-              weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
-              opacity: properties['stroke-opacity'] !== undefined 
-                ? properties['stroke-opacity'] 
-                : 1
+              style: {
+                strokeColor: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
+                strokeWidth: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
+                strokeOpacity: properties['stroke-opacity'] !== undefined 
+                  ? properties['stroke-opacity'] 
+                  : 1,
+                dashArray: null
+              }
             };
             setDrawings(prev => [...prev, newLine]);
             positions.forEach(pos => allBounds.push(pos));
@@ -871,15 +878,17 @@ export default function InteractiveMap() {
               area: metrics.area,
               areaKm: metrics.areaKm,
               perimeter: metrics.perimeter,
-              color: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
-              fillColor: properties.fill || currentStyle?.fillColor || '#3B82F6',
-              weight: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
-              fillOpacity: properties['fill-opacity'] !== undefined 
-                ? properties['fill-opacity'] 
-                : (currentStyle?.fillOpacity !== undefined ? currentStyle.fillOpacity / 100 : 0.2),
-              opacity: properties['stroke-opacity'] !== undefined 
-                ? properties['stroke-opacity'] 
-                : 1
+              style: {
+                strokeColor: properties.stroke || currentStyle?.strokeColor || '#3B82F6',
+                fillColor: properties.fill || currentStyle?.fillColor || '#3B82F6',
+                strokeWidth: properties['stroke-width'] || currentStyle?.strokeWidth || 3,
+                fillOpacity: properties['fill-opacity'] !== undefined 
+                  ? properties['fill-opacity'] 
+                  : (currentStyle?.fillOpacity !== undefined ? currentStyle.fillOpacity / 100 : 0.2),
+                strokeOpacity: properties['stroke-opacity'] !== undefined 
+                  ? properties['stroke-opacity'] 
+                  : 1
+              }
             };
             setDrawings(prev => [...prev, newPolygon]);
             positions.forEach(pos => allBounds.push(pos));
