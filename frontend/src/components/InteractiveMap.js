@@ -416,7 +416,7 @@ function FileImporter({ onFileImport }) {
       <input
         type="file"
         data-testid="file-input"
-        accept=".geojson,.json,.kml"
+        accept=".geojson,.json,.kml,.kmz"
         onChange={handleFileUpload}
         className="hidden"
       />
