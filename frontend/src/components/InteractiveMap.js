@@ -584,12 +584,18 @@ export default function InteractiveMap() {
     if (activeTool === toolId) {
       setActiveTool(null);
       setMeasurePoints([]);
+      setDrawingPoints([]);
       toast.info('Tool deactivated');
     } else {
       setActiveTool(toolId);
       setMeasurePoints([]);
+      setDrawingPoints([]);
       if (toolId === 'measure') {
-        toast.info('Click on map to start measuring distance');
+        toast.info('Click on map to start measuring distance/area');
+      } else if (toolId === 'line') {
+        toast.info('Click to add points, double-click to finish line');
+      } else if (toolId === 'polygon') {
+        toast.info('Click to add points, double-click to finish polygon');
       } else {
         toast.info(`${toolId.charAt(0).toUpperCase() + toolId.slice(1)} tool activated - Click on map`);
       }
