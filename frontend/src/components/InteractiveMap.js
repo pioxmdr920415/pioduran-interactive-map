@@ -1075,9 +1075,9 @@ export default function InteractiveMap() {
           {activeTool === 'measure' && measurePoints.length > 0 && (
             <Polyline
               positions={measurePoints}
-              color="#EF4444"
-              weight={3}
-              dashArray="5, 10"
+              color={currentStyle.strokeColor}
+              weight={currentStyle.strokeWidth}
+              dashArray={currentStyle.dashArray}
               opacity={0.7}
             />
           )}
@@ -1086,8 +1086,9 @@ export default function InteractiveMap() {
           {activeTool === 'line' && drawingPoints.length > 0 && (
             <Polyline
               positions={drawingPoints}
-              color="#10B981"
-              weight={3}
+              color={currentStyle.strokeColor}
+              weight={currentStyle.strokeWidth}
+              dashArray={currentStyle.dashArray}
               opacity={0.7}
             />
           )}
@@ -1097,10 +1098,11 @@ export default function InteractiveMap() {
             <LeafletPolygon
               positions={drawingPoints}
               pathOptions={{
-                color: '#8B5CF6',
-                fillColor: '#8B5CF6',
-                fillOpacity: 0.2,
-                weight: 3,
+                color: currentStyle.strokeColor,
+                fillColor: currentStyle.fillColor,
+                fillOpacity: currentStyle.fillOpacity * 0.5,
+                weight: currentStyle.strokeWidth,
+                dashArray: currentStyle.dashArray,
                 opacity: 0.7
               }}
             />
