@@ -207,95 +207,9 @@ function SearchBar({ onSearchResult }) {
   );
 }
 
-// Layer control component
-function LayerControl({ currentLayer, onLayerChange }) {
-  const [isOpen, setIsOpen] = useState(false);
+// Layer control component - REMOVED - Now part of UnifiedToolsPanel
 
-  return (
-    <div className="relative" data-testid="layer-control">
-      <button
-        data-testid="layer-control-toggle"
-        onClick={() => setIsOpen(!isOpen)}
-        className="glass-panel p-4 rounded-xl hover:shadow-xl transition-all active:scale-95 border-2 border-white/40 group"
-        title="Change map layer"
-      >
-        <Layers className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors" />
-      </button>
-
-      {isOpen && (
-        <div className="absolute right-0 top-full mt-2 glass-panel rounded-2xl p-2 min-w-[200px] animate-slide-in z-50">
-          <div className="space-y-1">
-            {Object.entries(MAP_LAYERS).map(([key, layer]) => (
-              <button
-                key={key}
-                data-testid={`layer-${key}`}
-                onClick={() => {
-                  onLayerChange(key);
-                  setIsOpen(false);
-                  toast.success(`Switched to ${layer.name}`);
-                }}
-                className={`w-full text-left px-4 py-2 rounded-xl transition-all ${
-                  currentLayer === key
-                    ? 'bg-primary text-white'
-                    : 'hover:bg-slate-100 text-slate-700'
-                }`}
-              >
-                {layer.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// Drawing toolbar
-function DrawingToolbar({ 
-  activeTool, 
-  onToolSelect, 
-  onClearDrawings,
-  drawingsCount 
-}) {
-  const tools = [
-    { id: 'line', icon: Minus, label: 'Draw Line' },
-    { id: 'polygon', icon: Pentagon, label: 'Draw Polygon' },
-    { id: 'circle', icon: Circle, label: 'Draw Circle' },
-    { id: 'rectangle', icon: Square, label: 'Draw Rectangle' },
-    { id: 'measure', icon: Ruler, label: 'Measure Distance/Area' },
-  ];
-
-  return (
-    <div className="glass-panel rounded-2xl p-3 flex flex-col gap-2 shadow-xl border-2 border-white/40" data-testid="drawing-toolbar">
-      {tools.map((tool) => (
-        <button
-          key={tool.id}
-          data-testid={`tool-${tool.id}`}
-          onClick={() => onToolSelect(tool.id)}
-          className={`p-3.5 rounded-xl transition-all active:scale-95 ${
-            activeTool === tool.id
-              ? 'bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-lg scale-105'
-              : 'hover:bg-blue-50 text-slate-700 hover:text-blue-600'
-          }`}
-          title={tool.label}
-        >
-          <tool.icon className="w-5 h-5" />
-        </button>
-      ))}
-      
-      {drawingsCount > 0 && (
-        <button
-          data-testid="clear-drawings"
-          onClick={onClearDrawings}
-          className="p-3.5 rounded-xl hover:bg-red-50 text-red-500 hover:text-red-600 transition-all active:scale-95 mt-2 border-t-2 border-slate-200/50"
-          title="Clear all drawings"
-        >
-          <Trash2 className="w-5 h-5" />
-        </button>
-      )}
-    </div>
-  );
-}
+// Drawing toolbar - REMOVED - Now part of UnifiedToolsPanel
 
 // Route planning component
 function RoutePlanner({ map, onRouteCalculated }) {
