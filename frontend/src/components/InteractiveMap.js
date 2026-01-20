@@ -696,10 +696,23 @@ export default function InteractiveMap() {
           {drawings.map((drawing) => {
             if (drawing.type === 'circle') {
               return (
-                <L.Circle
+                <LeafletCircle
                   key={drawing.id}
                   center={drawing.center}
                   radius={drawing.radius}
+                  pathOptions={{
+                    color: '#0EA5E9',
+                    fillColor: '#0EA5E9',
+                    fillOpacity: 0.2
+                  }}
+                />
+              );
+            }
+            if (drawing.type === 'rectangle') {
+              return (
+                <LeafletRectangle
+                  key={drawing.id}
+                  bounds={drawing.bounds}
                   pathOptions={{
                     color: '#0EA5E9',
                     fillColor: '#0EA5E9',
