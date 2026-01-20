@@ -1081,6 +1081,11 @@ export default function InteractiveMap() {
         />
 
         <FileImporter onFileImport={handleFileImport} />
+        
+        <ExportMapButton 
+          onExport={handleExportMap}
+          onPrint={handlePrintMap}
+        />
       </div>
 
       {/* Right toolbar - Drawing tools */}
