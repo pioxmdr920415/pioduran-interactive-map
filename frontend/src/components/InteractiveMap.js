@@ -128,16 +128,18 @@ function SearchBar({ onSearchResult }) {
 
   return (
     <div className="relative" data-testid="search-container">
-      <div className="glass-panel rounded-2xl p-3 flex items-center gap-2 min-w-[300px] md:min-w-[400px]">
-        <Search className="w-5 h-5 text-slate-400" />
+      <div className="glass-panel rounded-2xl p-4 flex items-center gap-3 min-w-[320px] md:min-w-[500px] shadow-lg border-2 border-white/40">
+        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-500/10">
+          <Search className="w-5 h-5 text-blue-600" />
+        </div>
         <input
           type="text"
           data-testid="search-input"
-          placeholder="Search location..."
+          placeholder="Search locations in Pio Duran, Albay..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-          className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400"
+          className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-500 font-medium text-base"
         />
         {searchQuery && (
           <button
@@ -145,9 +147,9 @@ function SearchBar({ onSearchResult }) {
               setSearchQuery('');
               setShowResults(false);
             }}
-            className="text-slate-400 hover:text-slate-600"
+            className="text-slate-400 hover:text-slate-600 p-1 hover:bg-slate-100 rounded-lg transition-all"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         )}
         <button
