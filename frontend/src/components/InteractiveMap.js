@@ -1092,36 +1092,10 @@ export default function InteractiveMap() {
         </MapContainer>
       </div>
 
-      {/* Right Side - Unified Tools Panel */}
-      <div className="absolute right-6 top-[110px] z-10 animate-slide-in" data-testid="drawing-toolbar">
-        <UnifiedToolsPanel 
-          activeTool={activeTool}
-          onToolSelect={handleToolSelect}
-          onClearDrawings={clearDrawings}
-          drawingsCount={drawings.length}
-          onStylePickerToggle={() => setIsStylePickerOpen(!isStylePickerOpen)}
-          isStylePickerOpen={isStylePickerOpen}
-          currentLayer={currentLayer}
-          onLayerChange={setCurrentLayer}
-          mapLayers={MAP_LAYERS}
-        />
-      </div>
-
-      {/* Style Picker Panel - Positioned near Tools Panel */}
-      {isStylePickerOpen && (
-        <div className="absolute right-[340px] top-[110px] z-50 animate-slide-in">
-          <StylePickerPanel 
-            isOpen={isStylePickerOpen}
-            onClose={() => setIsStylePickerOpen(false)}
-            currentStyle={currentStyle}
-            onStyleChange={setCurrentStyle}
-            activeTool={activeTool}
-          />
-        </div>
-      )}
-
       {/* Bottom Left - Marker & Route Controls */}
-      <div className="absolute bottom-6 left-6 z-10 flex flex-col gap-3">
+      <div className={`absolute bottom-6 z-10 flex flex-col gap-3 transition-all duration-300 ${
+        isSidebarOpen ? 'left-[400px]' : 'left-6'
+      }`}>
         <button
           data-testid="add-marker-button"
           onClick={() => {
