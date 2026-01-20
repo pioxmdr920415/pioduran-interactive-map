@@ -129,6 +129,9 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Implemented line drawing with click-to-add-points and double-click-to-finish. Shows distance in km. Needs testing."
+      - working: "NA"
+        agent: "main"
+        comment: "Updated to support custom styling via StylePickerPanel. Now uses user-selected colors, stroke width, opacity, and line styles."
 
   - task: "Polygon Drawing Tool"
     implemented: true
@@ -141,6 +144,9 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Implemented polygon drawing with click-to-add-points and double-click-to-finish. Calculates area (m²/km²) and perimeter. Needs testing."
+      - working: "NA"
+        agent: "main"
+        comment: "Updated to support custom styling. Users can customize stroke/fill colors, opacity, width, and line styles."
 
   - task: "Enhanced Measurement Tool"
     implemented: true
@@ -153,6 +159,9 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Enhanced existing measure tool to work alongside new drawing tools. Measures distance for polylines. Needs testing."
+      - working: "NA"
+        agent: "main"
+        comment: "Updated to support custom styling. Default is red dashed line, but users can customize."
 
   - task: "Export Map as JPEG"
     implemented: true
@@ -201,6 +210,54 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Added ExportMapButton component in top controls with dropdown for JPEG export and print options. Needs testing."
+
+  - task: "Color & Style Picker Panel"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/StylePickerPanel.js, /app/frontend/src/components/InteractiveMap.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Created comprehensive StylePickerPanel with stroke color picker, fill color picker, stroke width slider (1-10px), fill opacity slider (0-100%), line style options (solid, dashed, dotted, dash-dot). Fully integrated with all drawing tools."
+
+  - task: "Per-Tool Default Colors"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/StylePickerPanel.js, /app/frontend/src/components/InteractiveMap.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented per-tool defaults: Line-Green (#10B981), Polygon-Purple (#8B5CF6), Circle/Rectangle-Blue (#0EA5E9), Measure-Red dashed (#EF4444). Auto-applies when tool is selected."
+
+  - task: "Preset Color Palettes"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/StylePickerPanel.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added quick color palettes: Emergency (Red, Orange, Yellow), Water (Blues and Teals), Nature (Greens), Infrastructure (Grays and Blues). Includes custom color history tracking."
+
+  - task: "Real-time Style Preview"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/InteractiveMap.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Active drawing previews (while drawing) show current style settings in real-time. Users see exactly how their drawing will look before completing it."
 
 metadata:
   created_by: "main_agent"
